@@ -30,7 +30,7 @@ struct __test_t__ {
 		uint name_len = strlen(NAME); \
 		__t__->name = calloc(sizeof(char), name_len + 1); \
 		strcpy(__t__->name, NAME);\
-	} while(0)
+	} while (false)
 
 #define UT_ASSERT(msg, bool_test) do { \
 		if (bool_test) break; \
@@ -40,7 +40,7 @@ struct __test_t__ {
 		strcpy(__t__->message, msg); \
 		vector_push(&__test_vec__, __t__, NULL); \
 		return; \
-	} while (0)
+	} while (false)
 
 #define UT_SUCCEED() do { \
 		__t__->result = TEST_RESULT_SUCCESS; \
@@ -48,7 +48,7 @@ struct __test_t__ {
 		__t__->message[0] = '\0';\
 		vector_push(&__test_vec__, __t__, NULL); \
 		return; \
-	} while (0)
+	} while (false)
 
 
 #define UT_INFO() do { \
@@ -70,7 +70,7 @@ struct __test_t__ {
 			__vec_len__ - __failure_count__, \
 			__vec_len__ \
 		);\
-	} while(0)
+	} while (false)
 
 #define UT_END() vector_drop(&__test_vec__)
 
