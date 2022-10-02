@@ -6,8 +6,22 @@
 #ifndef __COLLECTIONS_VECTOR_H__
 #define __COLLECTIONS_VECTOR_H__
 
-struct __vector_t__;
-enum   __vector_result_t__;
+// public structs/enum
+struct __vector_t__ {
+	void **items;
+	unsigned int length;
+};
+
+enum __vector_result_t__ {
+	VECTOR_RESULT_SUCCESS,
+	VECTOR_RESULT_UNDEFINED,
+	VECTOR_RESULT_INIT_CALLOC_FAILURE,
+	VECTOR_RESULT_GET_INDEX_OVERLAP,
+	VECTOR_RESULT_PUSH_REALLOC_FAILURE,
+	VECTOR_RESULT_PUSH_ITEM_INVALID,
+	VECTOR_RESULT_REMOVE_INDEX_OVERLAP,
+	VECTOR_RESULT_REMOVE_REALLOC_FAILURE,
+};
 
 // public aliases
 typedef struct __vector_t__        vector_t;
