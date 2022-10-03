@@ -16,6 +16,11 @@
 
 // public function implementations
 void vector_init(vector_t *vec, vector_result_t *err) {
+	if (vec == NULL) {
+		if (err != NULL) *err = VECTOR_RESULT_UNDEFINED;
+		return;
+	}
+
 	vec->length = 0;
 	vec->items = calloc(sizeof(void *), 1);
 
