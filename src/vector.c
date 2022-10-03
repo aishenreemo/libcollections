@@ -96,6 +96,11 @@ void vector_drop(vector_t *vec) {
 	if (vec == NULL) return;
 
 	vec->length = 0;
-	for (uint i = 0; i < vec->length; i++) free(vec->items[i]);
+	for (uint i = 0; i < vec->length; i++) {
+		free(vec->items[i]);
+		vec->items[i] = NULL;
+	}
+
 	free(vec->items);
+	vec->items = NULL;
 }
