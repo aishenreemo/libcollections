@@ -92,6 +92,14 @@ void vector_concat(vector_t *dest, vector_t *source, size_t size, vector_result_
 	if (err != NULL) *err = VECTOR_RESULT_SUCCESS;
 }
 
+void vector_copy(vector_t *dest, vector_t *source, size_t size, vector_result_t *err) {
+	vector_clear(dest, err);
+	if (err != NULL && *err != VECTOR_RESULT_SUCCESS) return;
+	vector_concat(dest, source, size, err);
+	if (err != NULL && *err != VECTOR_RESULT_SUCCESS) return;
+	if (err != NULL) *err = VECTOR_RESULT_SUCCESS;
+}
+
 void vector_remove(vector_t *vec, uint index, vector_result_t *err) {
 	if (vec == NULL) {
 		if (err != NULL) *err = VECTOR_RESULT_UNDEFINED;
