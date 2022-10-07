@@ -6,6 +6,8 @@
 #ifndef __COLLECTIONS_VECTOR_H__
 #define __COLLECTIONS_VECTOR_H__
 
+#include <stdlib.h>
+
 // public structs/enum
 struct __vector_t__ {
 	void **items;
@@ -21,6 +23,7 @@ enum __vector_result_t__ {
 	VECTOR_RESULT_PUSH_ITEM_INVALID,
 	VECTOR_RESULT_REMOVE_INDEX_OVERLAP,
 	VECTOR_RESULT_REMOVE_REALLOC_FAILURE,
+	VECTOR_RESULT_CONCAT_MALLOC_FAILURE,
 };
 
 // public aliases
@@ -32,6 +35,7 @@ typedef enum   __vector_result_t__ vector_result_t;
 void vector_init(vector_t *, vector_result_t *);
 void *vector_get(vector_t *, unsigned int, vector_result_t *);
 void vector_push(vector_t *, void *, vector_result_t *);
+void vector_concat(vector_t *, vector_t *, size_t, vector_result_t *);
 
 void vector_remove(vector_t *, unsigned int, vector_result_t *);
 

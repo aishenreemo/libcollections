@@ -6,6 +6,7 @@
 // idk how to name things forgive me xd
 
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
 
 #include "vector.h"
@@ -62,6 +63,31 @@ void vector_push(vector_t *vec, void *item, vector_result_t *err) {
 	items[vec->length] = item;
 	vec->length += 1;
 	vec->items = items;
+
+	if (err != NULL) *err = VECTOR_RESULT_SUCCESS;
+}
+
+void vector_concat(vector_t *dest, vector_t *source, size_t size, vector_result_t *err) {
+	if (dest == NULL || source == NULL) {
+		if (err != NULL) *err = VECTOR_RESULT_UNDEFINED;
+		return;
+	}
+
+	for (uint i = 0; i < source->length; i++) {
+		void *item = vector_get(source, i, err);
+		if (err != NULL && *err != VECTOR_RESULT_SUCCESS) return;
+
+		void *item_copy = malloc(size);
+		if (item_copy == NULL) {
+			if (err != NULL) *err = VECTOR_RESULT_CONCAT_MALLOC_FAILURE;
+			return;
+		}
+
+		memcpy(item_copy, item, size);
+
+		vector_push(dest, item_copy, err);
+		if (err != NULL && *err != VECTOR_RESULT_SUCCESS) return;
+	}
 
 	if (err != NULL) *err = VECTOR_RESULT_SUCCESS;
 }
