@@ -118,6 +118,13 @@ void vector_remove(vector_t *vec, uint index, vector_result_t *err) {
 	if (err != NULL) *err = VECTOR_RESULT_SUCCESS;
 }
 
+void vector_clear(vector_t *vec, vector_result_t *err) {
+	for (int i = (int) vec->length; i >= 0; --i) {
+		vector_remove(vec, (uint) i, err);
+		if (err != NULL && *err != VECTOR_RESULT_SUCCESS) return;
+	}
+}
+
 void vector_drop(vector_t *vec) {
 	if (vec == NULL) return;
 

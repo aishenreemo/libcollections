@@ -38,6 +38,7 @@ void vector_push(vector_t *, void *, vector_result_t *);
 void vector_concat(vector_t *, vector_t *, size_t, vector_result_t *);
 
 void vector_remove(vector_t *, unsigned int, vector_result_t *);
+void vector_clear(vector_t *, vector_result_t *);
 
 void vector_drop(vector_t *);
 
