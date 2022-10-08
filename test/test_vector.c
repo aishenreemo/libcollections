@@ -80,6 +80,15 @@ void test_vector_remove() {
 	UT_SUCCEED();
 }
 
+void test_vector_drop() {
+	UT_TEST();
+	UT_NAME("test_vector_remove");
+
+	vector_drop(&test_vec);
+
+	UT_SUCCEED();
+}
+
 int main(void) {
 	printf("%s\n", __FILE__);
 
@@ -90,8 +99,7 @@ int main(void) {
 	test_vector_push();
 	test_vector_get();
 	test_vector_remove();
-
-	vector_drop(&test_vec);
+	test_vector_drop();
 
 	UT_INFO();
 	UT_END();
