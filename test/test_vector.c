@@ -73,6 +73,7 @@ void test_vector_remove() {
 
 	vector_remove(&test_vec, 0, &test_resvec);
 	UT_ASSERT("vector_remove failed.", test_resvec == VECTOR_RESULT_SUCCESS);
+	UT_ASSERT("vector_length unexpected", test_vec.length == 0);
 
 	vector_get(&test_vec, 0, &test_resvec);
 	UT_ASSERT("vector_remove doesnt remove item.", test_resvec == VECTOR_RESULT_GET_INDEX_OVERLAP);
