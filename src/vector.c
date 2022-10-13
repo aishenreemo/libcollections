@@ -57,7 +57,8 @@ void vector_push(vector_t *vec, void *item, vector_result_t *err) {
 	}
 
 	if (vec->capacity <= vec->length + 1) {
-		vec->items = realloc(vec->items, sizeof(void *) * (vec->capacity * 2));
+		vec->capacity *= 2;
+		vec->items = realloc(vec->items, sizeof(void *) * vec->capacity);
 
 		if (vec->items == NULL) {
 			if (err != NULL) *err = VECTOR_RESULT_PUSH_REALLOC_FAILURE;
@@ -114,7 +115,8 @@ void vector_remove(vector_t *vec, uint index, vector_result_t *err) {
 	}
 
 	if ((vec->capacity / 2) > vec->length + 1) {
-		vec->items = realloc(vec->items, sizeof(void *) * (vec->capacity / 2));
+		vec->capacity /= 2;
+		vec->items = realloc(vec->items, sizeof(void *) * vec->capacity);
 		if (vec->items == NULL) {
 			if (err != NULL) *err = VECTOR_RESULT_REMOVE_REALLOC_FAILURE;
 			return;
