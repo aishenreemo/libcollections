@@ -12,6 +12,7 @@
 struct __vector_t__ {
 	void **items;
 	unsigned int length;
+	unsigned int capacity;
 };
 
 enum __vector_result_t__ {

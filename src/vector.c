@@ -23,7 +23,8 @@ void vector_init(vector_t *vec, vector_result_t *err) {
 	}
 
 	vec->length = 0;
-	vec->items = calloc(sizeof(void *), 1);
+	vec->capacity = 6;
+	vec->items = calloc(sizeof(void *), vec->capacity);
 
 	if (err != NULL) *err = (vec->items == NULL)
 		? VECTOR_RESULT_INIT_CALLOC_FAILURE
@@ -52,17 +53,17 @@ void vector_push(vector_t *vec, void *item, vector_result_t *err) {
 		return;
 	}
 
-	void **items = realloc(vec->items, sizeof(void *) * (vec->length + 1));
+	if (vec->capacity <= vec->length + 1) {
+		vec->items = realloc(vec->items, sizeof(void *) * (vec->capacity * 2));
 
-	if (items == NULL) {
-		if (err != NULL) *err = VECTOR_RESULT_PUSH_REALLOC_FAILURE;
-		printf("?\n");
-		return;
+		if (vec->items == NULL) {
+			if (err != NULL) *err = VECTOR_RESULT_PUSH_REALLOC_FAILURE;
+			return;
+		}
 	}
 
-	items[vec->length] = item;
+	vec->items[vec->length] = item;
 	vec->length += 1;
-	vec->items = items;
 
 	if (err != NULL) *err = VECTOR_RESULT_SUCCESS;
 }
@@ -109,19 +110,20 @@ void vector_remove(vector_t *vec, uint index, vector_result_t *err) {
 		return;
 	}
 
-	void **items = realloc(vec->items, sizeof(void *) * vec->length);
-	if (items == NULL) {
-		if (err != NULL) *err = VECTOR_RESULT_REMOVE_REALLOC_FAILURE;
-		return;
+	if ((vec->capacity / 2) > vec->length + 1) {
+		vec->items = realloc(vec->items, sizeof(void *) * (vec->capacity / 2));
+		if (vec->items == NULL) {
+			if (err != NULL) *err = VECTOR_RESULT_REMOVE_REALLOC_FAILURE;
+			return;
+		}
 	}
 
-	free(items[index]);
+	free(vec->items[index]);
 	for (uint i = index; (i + 1) < vec->length; i++) {
-		items[i] = items[i + 1];
+		vec->items[i] = vec->items[i + 1];
 	}
 
 	vec->length -= 1;
-	vec->items = items;
 
 	if (err != NULL) *err = VECTOR_RESULT_SUCCESS;
 }
