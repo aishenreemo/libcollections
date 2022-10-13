@@ -44,6 +44,6 @@ void vector_clear(vector_t *, vector_result_t *);
 
 void vector_drop(vector_t *);
 
-// void vector_print_error(vector_result_t);
+void vector_print_error(vector_result_t);
 
 #endif // __COLLECTIONS_VECTOR_H__

@@ -11,6 +11,9 @@
 
 #include "vector.h"
 
+#define VECTOR_DEBUG_WARN "\033[1;33mwarn\033[0m"
+#define VECTOR_DEBUG_WARN_FN(TEXT) VECTOR_DEBUG_WARN "(" TEXT ")"
+
 // private struct/enum declarations
 
 // private function declarations
@@ -148,4 +151,44 @@ void vector_drop(vector_t *vec) {
 
 	free(vec->items);
 	vec->items = NULL;
+}
+
+void vector_print_error(vector_result_t result) {
+	switch (result) {
+
+	case VECTOR_RESULT_SUCCESS:
+		break;
+	case VECTOR_RESULT_UNDEFINED:
+		printf(VECTOR_DEBUG_WARN ": ");
+		printf("passing an invalid NULL value on a function.\n");
+		break;
+	case VECTOR_RESULT_INIT_CALLOC_FAILURE:
+		printf(VECTOR_DEBUG_WARN_FN("vector_init") ": ");
+		printf("failed to alloc memory.\n");
+		break;
+	case VECTOR_RESULT_PUSH_REALLOC_FAILURE:
+		printf(VECTOR_DEBUG_WARN_FN("vector_push") ": ");
+		printf("failed to realloc memory.\n");
+		break;
+	case VECTOR_RESULT_REMOVE_REALLOC_FAILURE:
+		printf(VECTOR_DEBUG_WARN_FN("vector_remove") ": ");
+		printf("failed to realloc memory.\n");
+		break;
+	case VECTOR_RESULT_CONCAT_MALLOC_FAILURE:
+		printf(VECTOR_DEBUG_WARN_FN("vector_concat") ": ");
+		printf("failed to alloc memory.\n");
+		break;
+	case VECTOR_RESULT_GET_INDEX_OVERLAP:
+		printf(VECTOR_DEBUG_WARN_FN("vector_get") ": ");
+		printf("out of index.\n");
+		break;
+	case VECTOR_RESULT_REMOVE_INDEX_OVERLAP:
+		printf(VECTOR_DEBUG_WARN_FN("vector_remove") ": ");
+		printf("out of index.\n");
+		break;
+	case VECTOR_RESULT_PUSH_ITEM_INVALID:
+		printf(VECTOR_DEBUG_WARN_FN("vector_push") ": ");
+		printf("passing an invalid NULL value.\n");
+		break;
+	}
 }
