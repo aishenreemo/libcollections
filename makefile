@@ -8,7 +8,7 @@ INCLUDE = ./include
 
 CC = gcc
 LIBS =
-FLAGS = -I$(INCLUDE)
+FLAGS = -I$(INCLUDE) -Wall -O3 -march=native
 
 OBJECTS = $(patsubst $(SRC)/%.c,$(DIST)/%.o,$(wildcard $(SRC)/*.c))
 TEST_BINS = $(patsubst $(TEST)/test_%.c,$(DIST)/%.test,$(wildcard $(TEST)/test_*.c))
