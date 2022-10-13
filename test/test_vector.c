@@ -13,6 +13,7 @@ void test_vector_init() {
 	UT_NAME("test_vector_init");
 
 	vector_init(&test_vec, &test_resvec);
+	vector_print_error(test_resvec);
 
 	UT_ASSERT("vector_init failed.", test_resvec == VECTOR_RESULT_SUCCESS);
 	UT_SUCCEED();
@@ -49,6 +50,7 @@ void test_vector_push() {
 	strcpy(test_output, str);
 
 	vector_push(&test_vec, test_output, &test_resvec);
+	vector_print_error(test_resvec);
 
 	UT_ASSERT("vector_push failed.", test_resvec == VECTOR_RESULT_SUCCESS);
 	UT_SUCCEED();
@@ -59,6 +61,7 @@ void test_vector_get() {
 	UT_NAME("test_vector_get");
 
 	char *test_output = vector_get(&test_vec, 0, &test_resvec);
+	vector_print_error(test_resvec);
 
 	// printf("%s\n", test_output);
 	// test string
@@ -72,6 +75,7 @@ void test_vector_remove() {
 	UT_NAME("test_vector_remove");
 
 	vector_remove(&test_vec, 0, &test_resvec);
+	vector_print_error(test_resvec);
 	UT_ASSERT("vector_remove failed.", test_resvec == VECTOR_RESULT_SUCCESS);
 	UT_ASSERT("vector_length unexpected", test_vec.length == 0);
 
