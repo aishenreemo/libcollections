@@ -1,0 +1,3 @@
+-I./include
+-L./shared
+-lcollections
