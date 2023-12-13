@@ -1,20 +1,21 @@
+#include <stdio.h>
 #include "vec.h"
 
 
 int main() {
 	struct vec_t num_vec;
-	int num;
 
 	vec_init(&num_vec, sizeof(int));
 
-	num = 1;
-	vec_push(&num_vec, &num);
+	vec_push(&num_vec, &(int) {1});
+	vec_push(&num_vec, &(int) {2});
+	vec_push(&num_vec, &(int) {3});
 
-	num = 2;
-	vec_push(&num_vec, &num);
+	for (int i = 0; i < num_vec.length; i++) {
+		printf("%d ", *(int *) vec_get(&num_vec, i));
+	}
 
-	num = 3;
-	vec_push(&num_vec, &num);
+	printf("\n");
 
 	vec_drop(&num_vec);
 }
