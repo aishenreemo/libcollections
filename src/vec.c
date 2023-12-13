@@ -138,13 +138,7 @@ void vec_concat(struct vec_t *const dest, struct vec_t const *const src) {
 	);
 
 	for (uint i = 0; i < src->length; i++) {
-		void *item = vec_get(src, i);
-		void *item_copy = malloc(src->size);
-
-		VEC_FATAL_ERR(item_copy == NULL, "failed to malloc.");
-
-		memcpy(item_copy, item, src->size);
-		vec_push(dest, item_copy);
+		vec_push(dest, vec_get(src, i));
 	}
 }
 
